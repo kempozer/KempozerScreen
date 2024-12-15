@@ -4,7 +4,8 @@
 
 namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 	/**
-	 * 
+	 * The documentation on the members of this enum are based off of the
+	 * HX8357-D's (seemingly incomplete) documentation, along with testing.
 	 */
 	enum class Command : std::uint8_t {
 		/**
@@ -155,14 +156,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * Command Results
 		 * ===============
-		 * 0 - Dummy read
-		 * 1 - A byte with the following flags:
-		 * 	   D7 	 - Always 0
-		 * 	   D6:D4 - Bits of the DPI pixel format
-		 * 	   D3 	 - Always 0
-		 * 	   D2:D0 - Bits of the DBI pixel format
-		 * Additional pixel format information available on the
-		 * {@link Command#WRITE_DISPLAY_PIXEL_FORMAT} command.
+		 * - 0: Dummy read
+		 * - 1: A byte with the following flags:
+		 *   - D7: Always 0
+		 * 	 - D6..D4: Bits of the DPI pixel format
+		 * 	 - D3: Always 0
+		 * 	 - D2..D0: Bits of the DBI pixel format
+		 * 
+		 * @see #WRITE_DISPLAY_PIXEL_FORMAT
 		 */
 		READ_DISPLAY_PIXEL_FORMAT						= 0x0C,
 		/**
@@ -170,22 +171,23 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * Command Results
 		 * ===============
-		 * 0 - Dummy read
-		 * 1 - A byte with the following flags:
-		 * 	   D7 	 - 0: Vertical scrolling mode off
-		 * 			   1: Vertical scrolling mode on
-		 * 	   D6 	 - Always 0
-		 * 	   D5 	 - 0: Color inversion mode off
-		 * 			   1: Color inversion mode on
-		 * 	   D4:D3 - Always 0 according to documentation. It seems like it
-		 * 			   should return the status of the {@link ALL_PIXELS_ON}
-		 * 			   and {@link ALL_PIXELS_OFF} command.
-		 * 	   D2:D0 - Gamma curve selection.
-		 * Additional gamma curve selection information available on the
-		 * {@link Command#WRITE_GAMMA} command.
+		 * - 0: Dummy read
+		 * - 1: A byte with the following flags:
+		 *   - D7: Vertical scrolling mode
+		 * 	   - 0: Vertical scrolling mode off
+		 * 	   - 1: Vertical scrolling mode on
+		 * 	 - D6: Always 0
+		 * 	 - D5: Color inversion mode
+		 * 	   - 0: Color inversion mode off
+		 * 	   - 1: Color inversion mode on
+		 * 	 - D4..D3: Always 0
+		 *   - D2..D0: Gamma curve selection
+		 * 	   - 0b000: Gamma curve 1
+		 * 	   - 0b001: Gamma curve 2
+		 * 	   - 0b010: Gamma curve 3
+		 * 	   - 0b011: Gamma curve 4
 		 * 
-		 * @todo Confirm the WRITE_GAMMA command is the correct setter
-		 * 		 for this.
+		 * @see #WRITE_GAMMA
 		 */
 		READ_DISPLAY_IMAGE_MODE							= 0x0D,
 		/**
@@ -193,19 +195,18 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * Command Results
 		 * ===============
-		 * 0 - Dummy read
-		 * 1 - A byte with the following flags:
-		 * 	   D7 	 - 0: Sync signal off
-		 * 			   1: Sync signal on
-		 * 	   D6 	 - 0: Sync signal mode 1
-		 * 			   1: Sync signal mode 2
-		 * 	   D5:D1 - Always 0
-		 * 	   D0	 - 0: No DSI errors
-		 * 			   1: DSI errors
-		 * Additional sync signal mode information available on the
-		 * {@link Command#} command.
-		 * 
-		 * TODO: Find the command that defines the sync signal modes.
+		 * - 0: Dummy read
+		 * - 1: A byte with the following flags:
+		 * 	 - D7: Sync signal
+		 * 	   - 0: Sync signal off
+		 * 	   - 1: Sync signal on
+		 * 	 - D6: Sync signal mode
+		 * 	   - 0: Sync signal mode 1
+		 * 	   - 1: Sync signal mode 2
+		 * 	 - D5..D1: - Always 0
+		 * 	 - D0: DSI error
+		 * 	   - 0: No DSI errors
+		 * 	   - 1: DSI errors
 		 */
 		READ_DISPLAY_SIGNAL_MDOE						= 0x0E,
 		/**
@@ -213,15 +214,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * Command Results
 		 * ===============
-		 * 0 - Dummy read
-		 * 1 - A byte with the following flags:
-		 * 	   D7 	 - Register loading direction
-		 * 			       (TODO: Investigate the use of this flag)
-		 * 	   D6 	 - Functionality detection
-		 * 			       (TODO: Investigate the use of this flag)
-		 * 	   D5:D1 - Always 0
-		 * 	   D0	 - 0: Checksum passed
-		 * 			   1: Checksum failed
+		 * - 0: Dummy read
+		 * - 1: A byte with the following flags:
+		 * 	 - D7: Register loading direction (TODO: Investigate the use of this flag)
+		 * 	 - D6: Functionality detection (TODO: Investigate the use of this flag)
+		 * 	 - D5..D1: Always 0
+		 * 	 - D0: Checksum status
+		 * 	   - 0: Checksum passed
+		 * 	   - 1: Checksum failed
 		 */
 		READ_DISPLAY_SELF_DIAGNOSTIC_RESULT				= 0x0F,
 		/**
