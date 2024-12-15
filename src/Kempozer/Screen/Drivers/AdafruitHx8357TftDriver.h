@@ -106,6 +106,11 @@ namespace Kempozer::Screen::Drivers {
 		/**
 		 * @inheritdoc
 		 */
+		std::uint16_t readPixel();
+
+		/**
+		 * @inheritdoc
+		 */
 		void readPixels(std::size_t count, std::uint16_t *data);
 
 		/**

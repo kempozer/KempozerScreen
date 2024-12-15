@@ -11,6 +11,20 @@ namespace Kempozer::Screen {
 		}
 		return this;
 	}
+	
+	Driver *Driver::writePixels(std::size_t count, const std::uint16_t *data) {
+		for (size_t i = 0; i < count; ++i) {
+			writePixel(data[i]);
+		}
+		return this;
+	}
+
+	Driver *Driver::writeRepeatedPixel(std::size_t count, const std::uint16_t color) {
+		for (size_t i = 0; i < count; ++i) {
+			writePixel(color);
+		}
+		return this;
+	}
 
 	Driver *Driver::write16(std::uint16_t u16) {
 		write(std::uint8_t(u16));
@@ -32,6 +46,12 @@ namespace Kempozer::Screen {
 			write(data[i]);
 		}
 		return this;
+	}
+
+	void Driver::readPixels(std::size_t count, std::uint16_t *data) {
+		for (std::size_t i = 0; i < count; ++i) {
+			data[i] = readPixel();
+		}
 	}
 
 	std::uint16_t Driver::read16() {

@@ -1,7 +1,6 @@
 #include "Kempozer/Screen/Drivers/AdafruitHx8357TftDriver.h"
 
 #include <Arduino.h>
-#include <cassert>
 
 namespace Kempozer::Screen::Drivers {
 	using namespace ::Kempozer::Screen;
@@ -247,14 +246,14 @@ namespace Kempozer::Screen::Drivers {
 
 	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write16(std::uint16_t u16) {
 		write(std::uint8_t(u16 >> 8));
-		return write(std::uint8_t(u16 >> 0));
+		return write(std::uint8_t(u16));
 	}
 
 	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write32(std::uint32_t u32) {
 		write(std::uint8_t(u32 >> 24));
 		write(std::uint8_t(u32 >> 16));
 		write(std::uint8_t(u32 >> 8));
-		return write(std::uint8_t(u32 >> 0));
+		return write(std::uint8_t(u32));
 	}
 
 	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write64(std::uint64_t u64) {
@@ -265,7 +264,7 @@ namespace Kempozer::Screen::Drivers {
 		write(std::uint8_t(u64 >> 24));
 		write(std::uint8_t(u64 >> 16));
 		write(std::uint8_t(u64 >> 8));
-		return write(std::uint8_t(u64 >> 0));
+		return write(std::uint8_t(u64));
 	}
 
 	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::writeArray(std::size_t count, const std::uint8_t *data) {
@@ -275,12 +274,19 @@ namespace Kempozer::Screen::Drivers {
 		return this;
 	}
 
+	std::uint16_t AdafruitHx8357TftDriver::readPixel() {
+		writeCommand(Command::READ_MEMORY);
+		// Dummy read - required by the controller.
+		read();
+		return (read() << 8) | read();
+	}
+
 	void AdafruitHx8357TftDriver::readPixels(std::size_t count, std::uint16_t *data) {
 		writeCommand(Command::READ_MEMORY);
 		// Dummy read - required by the controller.
 		read();
 		for (std::size_t i = 0; i < count; ++i) {
-			data[i] = read() | (read() << 8);
+			data[i] = (read() << 8) | read();
 		}
 	}
 
@@ -337,8 +343,6 @@ namespace Kempozer::Screen::Drivers {
 	}
 
 	void AdafruitHx8357TftDriver::readArray(std::size_t count, std::uint8_t *data) {
-		assert(count);
-		assert(nullptr != data);
 		setDataDirection(INPUT);
 		for (std::size_t i = 0; i < count; ++i) {
 			assertRead(this);

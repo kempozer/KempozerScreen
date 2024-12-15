@@ -93,7 +93,7 @@ namespace Kempozer::Screen {
 		 * @param data
 		 */
 		[[gnu::nonnull]]
-		virtual Driver *writePixels(std::size_t count, const std::uint16_t *data) = 0;
+		virtual Driver *writePixels(std::size_t count, const std::uint16_t *data);
 
 		/**
 		 * Sends the same color of pixel to the screen repeatedly.
@@ -101,7 +101,7 @@ namespace Kempozer::Screen {
 		 * @param count
 		 * @param color
 		 */
-		virtual Driver *writeRepeatedPixel(std::size_t count, const std::uint16_t color) = 0;
+		virtual Driver *writeRepeatedPixel(std::size_t count, const std::uint16_t color);
 
 		/**
 		 * Sends all 16-bit pixels to the screen.
@@ -171,14 +171,9 @@ namespace Kempozer::Screen {
 		}
 
 		/**
-		 * 
+		 * Reads a single pixel from the screen.
 		 */
-		[[gnu::always_inline]]
-		inline std::uint16_t readPixel() {
-			std::uint16_t pixel;
-			readPixels(1, &pixel);
-			return pixel;
-		}
+		virtual std::uint16_t readPixel() = 0;
 
 		/**
 		 * Reads all 16-bit pixels from the screen.
@@ -187,7 +182,7 @@ namespace Kempozer::Screen {
 		 * @param data
 		 */
 		[[gnu::nonnull]]
-		virtual void readPixels(std::size_t count, std::uint16_t *data) = 0;
+		virtual void readPixels(std::size_t count, std::uint16_t *data);
 
 		template<std::size_t C>
 		[[gnu::always_inline]]
