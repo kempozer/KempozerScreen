@@ -19,6 +19,7 @@ namespace Kempozer::Screen {
 		 * implementation of write16 and read16 that relies on virtual method calls.
 		 */
 		const bool hasExplicit16Implementation : 1;
+		
 		/**
 		 * Declares that the driver has an explicit implementation for its write32 and
 		 * read32 methods.
@@ -26,6 +27,7 @@ namespace Kempozer::Screen {
 		 * implementation of write16 and read16 that relies on virtual method calls.
 		 */
 		const bool hasExplicit32Implementation : 1;
+
 		/**
 		 * Declares that the driver has an explicit implementation for its write64 and
 		 * read64 methods.
@@ -33,6 +35,7 @@ namespace Kempozer::Screen {
 		 * implementation of write16 and read16 that relies on virtual method calls.
 		 */
 		const bool hasExplicit64Implementation : 1;
+
 		/**
 		 * Declares that the driver has an explicit implementation for its writeArray and
 		 * readArray methods.
@@ -40,10 +43,12 @@ namespace Kempozer::Screen {
 		 * implementation of write16 and read16 that relies on virtual method calls.
 		 */
 		const bool hasExplicitArrayImplementation : 1;
+
 		/**
 		 * Declares that the driver has an explicit command/data signal.
 		 */
 		const bool hasExplicitCommandDataSignal : 1;
+
 		/**
 		 * Declares that the driver has an explicit read/write signal.
 		 */

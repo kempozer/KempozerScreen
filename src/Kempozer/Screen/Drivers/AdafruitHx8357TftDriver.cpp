@@ -27,7 +27,7 @@ namespace Kempozer::Screen::Drivers {
 	#define deassertWrite(driver) digitalWriteFast(driver->mWritePin, HIGH)
 
 	[[gnu::always_inline]]
-	inline void setDataDirection(uint8_t direction) {
+	inline void setDataDirection(std::uint8_t direction) {
 		pinMode(19, direction);
 		pinMode(18, direction);
 		pinMode(17, direction);
@@ -63,52 +63,55 @@ namespace Kempozer::Screen::Drivers {
 	}
 
 	[[gnu::always_inline]]
-	inline void enableExtensionCommands(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_ENABLE_EXTENSION_COMMANDS);
+	inline void enableExtensionCommands(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_ENABLE_EXTENSION_COMMANDS);
 		driver->writeArray<3>({0xFF, 0xB3, 0x57});
 		delay(250);  // TODO: Update this to a more accurate delay.
 	}
 
 	[[gnu::always_inline]]
-	inline void initializeRgbInterface(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_RGB_INTERFACE);
+	inline void initializeRgbInterface(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_RGB_INTERFACE);
 		driver->writeArray<4>({0b00110000, 0b00000000, 0b00000110, 0b00000110});
 	}
 
 	[[gnu::always_inline]]
-	inline void initializeVComVoltage(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_VCOM_VOLTAGE_REGISTER);
+	inline void initializeVComVoltage(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_VCOM_VOLTAGE_REGISTER);
 		driver->write(0x25);
 	}
 
 	[[gnu::always_inline]]
-	inline void initializePanel(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_PANEL_CHARACTERISTICS);
+	inline void initializePanel(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_PANEL_CHARACTERISTICS);
 		driver->write(0b00000101);
 	}
 
 	[[gnu::always_inline]]
-	inline void initializePowerControl(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_POWER_CONTROL);
+	inline void initializePowerControl(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_POWER_CONTROL);
 		driver->writeArray<6>({0x00, 0x15, 0x1C, 0x1C, 0x83, 0xAA});
 	}
 
 	[[gnu::always_inline]]
-	inline void initializeStba(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_STBA);
+	inline void initializeStba(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_STBA);
 		driver->writeArray<6>({0x50, 0x50, 0x01, 0x3C, 0x1E, 0x08});
 	}
 
 	[[gnu::always_inline]]
-	inline void initializeDisplayCycle(Driver* driver) {
-		reinterpret_cast<AdafruitHx8357TftDriver*>(driver)->writeCommand(Command::WRITE_DISPLAY_CYCLE_REGISTER);
+	inline void initializeDisplayCycle(Driver *driver) {
+		reinterpret_cast<AdafruitHx8357TftDriver *>(driver)->writeCommand(Command::WRITE_DISPLAY_CYCLE_REGISTER);
 		driver->writeArray<7>({0x02, 0x40, 0x00, 0x2A, 0x2A, 0x0D, 0x78});
 	}
 
 	// Main methods
-	AdafruitHx8357TftDriver::AdafruitHx8357TftDriver(uint8_t selectPin, uint8_t dataPin, uint8_t writePin, uint8_t readPin,
+	AdafruitHx8357TftDriver::AdafruitHx8357TftDriver(uint8_t selectPin,
+													 uint8_t dataPin,
+													 uint8_t writePin,
+													 uint8_t readPin,
 													 uint8_t resetPin) :
-							 Screen::Driver(320, 480) {
+							 Driver(320, 480) {
 		mSelectPin = selectPin;
 		mDataPin = dataPin;
 		mWritePin = writePin;
@@ -127,8 +130,11 @@ namespace Kempozer::Screen::Drivers {
 		mRotated = false;
 	}
 
-	AdafruitHx8357TftDriver::AdafruitHx8357TftDriver(const AdafruitHx8357TftDriver& other) :
-			   				 AdafruitHx8357TftDriver(other.mSelectPin, other.mDataPin, other.mWritePin, other.mReadPin,
+	AdafruitHx8357TftDriver::AdafruitHx8357TftDriver(const AdafruitHx8357TftDriver &other) :
+			   				 AdafruitHx8357TftDriver(other.mSelectPin,
+			   				 						 other.mDataPin,
+			   				 						 other.mWritePin,
+			   				 						 other.mReadPin,
 			   				 						 other.mResetPin) {
 		mLastSleepOn = other.mLastSleepOn;
 		mLastSleepOff = other.mLastSleepOff;
@@ -177,60 +183,81 @@ namespace Kempozer::Screen::Drivers {
 		return true;
 	}
 
-	void AdafruitHx8357TftDriver::select() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::select() {
 		digitalWriteFast(mSelectPin, LOW);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::deselect() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::deselect() {
 		digitalWriteFast(mSelectPin, HIGH);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::assertCommand() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::assertCommand() {
 		digitalWriteFast(mDataPin, LOW);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::deassertCommand() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::deassertCommand() {
 		digitalWriteFast(mDataPin, HIGH);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::writePixels(std::size_t count, const std::uint16_t *data) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::writePixel(std::uint16_t color) {
+		writeCommand(Command::WRITE_MEMORY);
+		write(std::uint8_t(color >> 8));
+		return write(std::uint8_t(color >> 0));
+	}
+
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::writePixels(std::size_t count, const std::uint16_t *data) {
 		writeCommand(Command::WRITE_MEMORY);
 		for (std::size_t i = 0; i < count; ++i) {
 			write(std::uint8_t(data[i] >> 8));
 			write(std::uint8_t(data[i] >> 0));
 		}
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::writeRepeatedPixels(std::size_t count, const std::uint16_t color) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::writeRepeatedPixel(std::size_t count, const std::uint16_t color) {
 		std::uint8_t hi = std::uint8_t(color >> 8);
 		std::uint8_t lo = std::uint8_t(color >> 0);
 
-		writeCommand(Command::WRITE_MEMORY);;
-		for (std::size_t i = 0; i < count; ++i) {
+		writeCommand(Command::WRITE_MEMORY);
+		if (hi == lo) {
 			write(hi);
-			write(lo);
+			for (std::size_t i = 0, c = count - 1; i < c; ++i) {
+				assertWrite(this);
+				deassertWrite(this);
+			}
+		} else {
+			for (std::size_t i = 0; i < count; ++i) {
+				write(hi);
+				write(lo);
+			}
 		}
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::write(std::uint8_t u8) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write(std::uint8_t u8) {
 		*(&GPIO6_DR) = (CORE_PORT_BITMASK & *(&GPIO6_DR)) | remap8To32(u8);
 		assertWrite(this);
 		deassertWrite(this);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::write16(std::uint16_t u16) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write16(std::uint16_t u16) {
 		write(std::uint8_t(u16 >> 8));
-		write(std::uint8_t(u16 >> 0));
+		return write(std::uint8_t(u16 >> 0));
 	}
 
-	void AdafruitHx8357TftDriver::write32(std::uint32_t u32) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write32(std::uint32_t u32) {
 		write(std::uint8_t(u32 >> 24));
 		write(std::uint8_t(u32 >> 16));
 		write(std::uint8_t(u32 >> 8));
-		write(std::uint8_t(u32 >> 0));
+		return write(std::uint8_t(u32 >> 0));
 	}
 
-	void AdafruitHx8357TftDriver::write64(std::uint64_t u64) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::write64(std::uint64_t u64) {
 		write(std::uint8_t(u64 >> 56));
 		write(std::uint8_t(u64 >> 48));
 		write(std::uint8_t(u64 >> 40));
@@ -238,13 +265,14 @@ namespace Kempozer::Screen::Drivers {
 		write(std::uint8_t(u64 >> 24));
 		write(std::uint8_t(u64 >> 16));
 		write(std::uint8_t(u64 >> 8));
-		write(std::uint8_t(u64 >> 0));
+		return write(std::uint8_t(u64 >> 0));
 	}
 
-	void AdafruitHx8357TftDriver::writeArray(std::size_t count, const std::uint8_t *data) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::writeArray(std::size_t count, const std::uint8_t *data) {
 		for (std::size_t i = 0; i < count; ++i) {
 			write(data[i]);
 		}
+		return this;
 	}
 
 	void AdafruitHx8357TftDriver::readPixels(std::size_t count, std::uint16_t *data) {
@@ -321,7 +349,7 @@ namespace Kempozer::Screen::Drivers {
 		setDataDirection(OUTPUT);
 	}
 
-	void AdafruitHx8357TftDriver::reset() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::reset() {
 		std::uint32_t timeSinceLastSleepOff = millis() - mLastSleepOff;
 		if (timeSinceLastSleepOff < 120) {
 			delay(timeSinceLastSleepOff);
@@ -330,42 +358,46 @@ namespace Kempozer::Screen::Drivers {
 		writeCommand(Command::RESET);
 		mLastReset = millis();
 		delay(5);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::displayOn() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::displayOn() {
 		writeCommand(Command::DISPLAY_ON);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::displayOff() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::displayOff() {
 		writeCommand(Command::DISPLAY_OFF);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::setMemoryAccessControl(MemoryAccessControl memoryAccessControl) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setMemoryAccessControl(MemoryAccessControl memoryAccessControl) {
 		writeCommand(Command::WRITE_MEMORY_ACCESS_CONTROL);
-		write(std::uint8_t(memoryAccessControl));
+		return write(std::uint8_t(memoryAccessControl));
 	}
 
-	void AdafruitHx8357TftDriver::setPixelFormat(PixelFormat dbiPixelFormat, PixelFormat dpiPixelFormat) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setPixelFormat(PixelFormat dbiPixelFormat, PixelFormat dpiPixelFormat) {
 		writeCommand(Command::WRITE_INTERFACE_PIXEL_FORMAT);
-		write((std::uint8_t(dpiPixelFormat) << 4) | std::uint8_t(dbiPixelFormat));
+		return write((std::uint8_t(dpiPixelFormat) << 4) | std::uint8_t(dbiPixelFormat));
 	}
 
-	void AdafruitHx8357TftDriver::setFrameRate(FrameRate normalFrameRate, FrameRate idleFrameRate) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setFrameRate(FrameRate normalFrameRate, FrameRate idleFrameRate) {
 		writeCommand(Command::WRITE_OSCILLATOR);
 		write((std::uint8_t(idleFrameRate) << 4) | std::uint8_t(normalFrameRate));
-		write(0x01);
+		return write(0x01);
 	}
 
-	void AdafruitHx8357TftDriver::setSync(bool syncOn) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setSync(bool syncOn) {
 		writeCommand(syncOn ? Command::SYNC_SIGNAL_ON : Command::SYNC_SIGNAL_OFF);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::setSyncScanLine(uint16_t scanLine) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setSyncScanLine(uint16_t scanLine) {
 		writeCommand(Command::WRITE_SYNC_SCAN_LINE);
-		write16(scanLine);
+		return write16(scanLine);
 	}
 
-	void AdafruitHx8357TftDriver::sleepOn() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::sleepOn() {
 		std::uint32_t timeSinceLastSleepOff = millis() - mLastSleepOff;
 		if (timeSinceLastSleepOff < 120) {
 			delay(timeSinceLastSleepOff);
@@ -373,9 +405,10 @@ namespace Kempozer::Screen::Drivers {
 
 		writeCommand(Command::SLEEP_ON);
 		mLastSleepOn = millis();
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::sleepOff() {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::sleepOff() {
 		std::uint32_t timeSinceLastSleepOn = millis() - mLastSleepOn;
 		if (timeSinceLastSleepOn < 120) {
 			delay(timeSinceLastSleepOn);
@@ -389,9 +422,10 @@ namespace Kempozer::Screen::Drivers {
 		writeCommand(Command::SLEEP_OFF);
 		mLastSleepOff = millis();
 		delay(5);
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::rotate(int rotation) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::rotate(int rotation) {
 		MemoryAccessControl memoryAccessControl = MemoryAccessControl::BGR_FILTER;
 
 		switch (rotation) {
@@ -414,20 +448,22 @@ namespace Kempozer::Screen::Drivers {
 		mRotated = MemoryAccessControl::ROTATED == (MemoryAccessControl::ROTATED & memoryAccessControl);
 
 		setMemoryAccessControl(memoryAccessControl);
+		return this;
 	}
 
 	bool AdafruitHx8357TftDriver::rotated() {
 		return mRotated;
 	}
 
-	void AdafruitHx8357TftDriver::addressWindow(uint16_t &x1, uint16_t &y1, uint16_t &x2, uint16_t &y2) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::addressWindow(uint16_t &x1, uint16_t &y1, uint16_t &x2, uint16_t &y2) {
 		x1 = mX1;
 		y1 = mY1;
 		x2 = mX2;
 		y2 = mY2;
+		return this;
 	}
 
-	void AdafruitHx8357TftDriver::setAddressWindow(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+	AdafruitHx8357TftDriver *AdafruitHx8357TftDriver::setAddressWindow(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
 		mX1 = x1;
 		mY1 = y1;
 		mX2 = x2;
@@ -438,6 +474,6 @@ namespace Kempozer::Screen::Drivers {
 		write16(x2);
 		writeCommand(Command::WRITE_PAGE_ADDRESS);
 		write16(y1);
-		write16(y2);
+		return write16(y2);
 	}
 };

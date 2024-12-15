@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Kempozer/Screen/Driver.h"
+#include "Kempozer/Screen/DriverFeatures.h"
 
 #include "Kempozer/Screen/Drivers/AdafruitHx8357Tft/Command.h"
 #include "Kempozer/Screen/Drivers/AdafruitHx8357Tft/FrameRate.h"
@@ -13,73 +14,194 @@ namespace Kempozer::Screen::Drivers {
 
 	class AdafruitHx8357TftDriver final : public Driver {
 	public:
+		constexpr static DriverFeatures FEATURES = {
+			.hasExplicit16Implementation = true,
+			.hasExplicit32Implementation = true,
+			.hasExplicit64Implementation = true,
+			.hasExplicitArrayImplementation = true,
+			.hasExplicitCommandDataSignal = true,
+			.hasExplicitReadWriteSignal = true,
+			.supportsRotate = true
+		};
+		const DriverFeatures &features() const {
+			return FEATURES;
+		}
+
+		/**
+		 * 
+		 */
 		AdafruitHx8357TftDriver(std::uint8_t selectPin, std::uint8_t dataPin, std::uint8_t writePin, std::uint8_t readPin, 
 								std::uint8_t resetPin);
+
+		/**
+		 * 
+		 */
 		AdafruitHx8357TftDriver(const AdafruitHx8357TftDriver& other);
 
+		/**
+		 * @inheritdoc
+		 */
 		bool initialize();
 
-		void select();
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *select();
 
-		void deselect();
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *deselect();
 
-		void assertCommand();
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *assertCommand();
 
-		void deassertCommand();
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *deassertCommand();
 
-		void writePixels(std::size_t count, const std::uint16_t *data);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *writePixel(std::uint16_t color);
 
-		void writeRepeatedPixels(std::size_t count, const std::uint16_t color);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *writePixels(std::size_t count, const std::uint16_t *data);
 
-		void write(std::uint8_t u8);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *writeRepeatedPixel(std::size_t count, const std::uint16_t color);
 
-		void write16(std::uint16_t u16);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *write(std::uint8_t u8);
 
-		void write32(std::uint32_t u32);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *write16(std::uint16_t u16);
 
-		void write64(std::uint64_t u64);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *write32(std::uint32_t u32);
 
-		void writeArray(std::size_t count, const std::uint8_t *data);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *write64(std::uint64_t u64);
 
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *writeArray(std::size_t count, const std::uint8_t *data);
+
+		/**
+		 * @inheritdoc
+		 */
 		void readPixels(std::size_t count, std::uint16_t *data);
 
+		/**
+		 * @inheritdoc
+		 */
 		std::uint8_t read();
 
+		/**
+		 * @inheritdoc
+		 */
 		std::uint16_t read16();
 
+		/**
+		 * @inheritdoc
+		 */
 		std::uint32_t read32();
 
+		/**
+		 * @inheritdoc
+		 */
 		std::uint64_t read64();
 
+		/**
+		 * @inheritdoc
+		 */
 		void readArray(std::size_t count, std::uint8_t *data);
 
-		void reset();
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *reset();
 
-		void displayOff();
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *displayOff();
 
-		void displayOn();
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *displayOn();
 
-		void setMemoryAccessControl(MemoryAccessControl memoryAccessControl);
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *setMemoryAccessControl(MemoryAccessControl memoryAccessControl);
 
-		void setPixelFormat(PixelFormat dbiPixelFormat, PixelFormat dpiPixelFormat);
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *setPixelFormat(PixelFormat dbiPixelFormat, PixelFormat dpiPixelFormat);
 
-		void setFrameRate(FrameRate normalFrameRate, FrameRate idleFrameRate);
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *setFrameRate(FrameRate normalFrameRate, FrameRate idleFrameRate);
 
-		void setSync(bool syncOn);
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *setSync(bool syncOn);
 
-		void setSyncScanLine(std::uint16_t scanLine);
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *setSyncScanLine(std::uint16_t scanLine);
 
-		void rotate(int rotation);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *rotate(int rotation);
 
+		/**
+		 * @inheritdoc
+		 */
 		bool rotated();
 
-		void addressWindow(std::uint16_t &x1, std::uint16_t &y1, std::uint16_t &x2, std::uint16_t &y2);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *addressWindow(std::uint16_t &x1, std::uint16_t &y1, std::uint16_t &x2, std::uint16_t &y2);
 
-		void setAddressWindow(std::uint16_t x1, std::uint16_t y1, std::uint16_t x2, std::uint16_t y2);
+		/**
+		 * @inheritdoc
+		 */
+		AdafruitHx8357TftDriver *setAddressWindow(std::uint16_t x1, std::uint16_t y1, std::uint16_t x2, std::uint16_t y2);
 
-		void sleepOn();
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *sleepOn();
 
-		void sleepOff();
+		/**
+		 * 
+		 */
+		AdafruitHx8357TftDriver *sleepOff();
 	private:
 		std::uint8_t mSelectPin,
 					 mDataPin,

@@ -3,12 +3,21 @@
 #include <Arduino.h>
 #include <cstdint>
 #include <type_traits>
-#include "Kempozer/Screen/Concepts.h"
+#include "KempozerScreenConcepts.h"
+#include "Kempozer/Screen/DriverFeatures.h"
 
 namespace Kempozer::Screen {
 
 	class Driver {
 	public:
+		/**
+		 * Returns a compact struct that defines all of the features of the
+		 * implementing driver so that some runtime introspection can be
+		 * performed to determine the best way to read from and write to
+		 * the screen.
+		 */
+		virtual const DriverFeatures &features() const = 0;
+
 		/**
 		 * Initializes this driver so that it can be used to interact with the
 		 * screen. If the driver is successfully initialized, or no verification
@@ -22,7 +31,7 @@ namespace Kempozer::Screen {
 		 * method of alerting the screen that it will be sending or receiving
 		 * data.
 		 */
-		virtual void select() = 0;
+		virtual Driver *select() = 0;
 
 		/**
 		 * Deselects this driver. This may either be a no-op if selection isn't
@@ -30,7 +39,7 @@ namespace Kempozer::Screen {
 		 * method of alerting the screen that it will be sending or receiving
 		 * data.
 		 */
-		virtual void deselect() = 0;
+		virtual Driver *deselect() = 0;
 
 		/**
 		 * Asserts that a command is being sent by this driver to the screen. This
@@ -38,7 +47,7 @@ namespace Kempozer::Screen {
 		 * line low or high as a signal, or any other method of alerting the screen
 		 * that it will be sending or receiving a command.
 		 */
-		virtual void assertCommand() = 0;
+		virtual Driver *assertCommand() = 0;
 
 		/**
 		 * Deasserts that a command is being sent by this driver to the screen. This
@@ -46,7 +55,7 @@ namespace Kempozer::Screen {
 		 * line low or high as a signal, or any other method of alerting the screen
 		 * that it will be sending or receiving a command.
 		 */
-		virtual void deassertCommand() = 0;
+		virtual Driver *deassertCommand() = 0;
 
 		/**
 		 * Sends a command to the screen. This command must be convertible
@@ -57,7 +66,7 @@ namespace Kempozer::Screen {
 		 */
 		template<commandtype EnumT>
 		[[gnu::always_inline]]
-		inline void writeCommand(EnumT command) {
+		inline Driver *writeCommand(EnumT command) {
 			assertCommand();
 			if (std::is_same_v<std::uint8_t, std::underlying_type_t<EnumT>>) {
 				write(std::uint8_t(command));
@@ -69,7 +78,13 @@ namespace Kempozer::Screen {
 				write64(std::uint64_t(command));
 			}
 			deassertCommand();
+			return this;
 		}
+
+		/**
+		 * 
+		 */
+		virtual Driver *writePixel(std::uint16_t color) = 0;
 
 		/**
 		 * Sends all 16-bit pixels to the screen.
@@ -78,7 +93,7 @@ namespace Kempozer::Screen {
 		 * @param data
 		 */
 		[[gnu::nonnull]]
-		virtual void writePixels(std::size_t count, const std::uint16_t *data) = 0;
+		virtual Driver *writePixels(std::size_t count, const std::uint16_t *data) = 0;
 
 		/**
 		 * Sends the same color of pixel to the screen repeatedly.
@@ -86,7 +101,7 @@ namespace Kempozer::Screen {
 		 * @param count
 		 * @param color
 		 */
-		virtual void writeRepeatedPixels(std::size_t count, const std::uint16_t color) = 0;
+		virtual Driver *writeRepeatedPixel(std::size_t count, const std::uint16_t color) = 0;
 
 		/**
 		 * Sends all 16-bit pixels to the screen.
@@ -96,8 +111,8 @@ namespace Kempozer::Screen {
 		 */
 		template<std::size_t C>
 		[[gnu::always_inline]]
-		inline void writePixels(const std::uint16_t (&data)[C]) {
-			writePixels(C, data);
+		inline Driver *writePixels(const std::uint16_t (&data)[C]) {
+			return writePixels(C, data);
 		}
 
 		/**
@@ -111,28 +126,28 @@ namespace Kempozer::Screen {
 		 * 
 		 * @param u8
 		 */
-		virtual void write(std::uint8_t u8) = 0;
+		virtual Driver *write(std::uint8_t u8) = 0;
 
 		/**
 		 * Sends a 16-bit value to the screen.
 		 * 
 		 * @param u16
 		 */
-		virtual void write16(std::uint16_t u16);
+		virtual Driver *write16(std::uint16_t u16);
 
 		/**
 		 * Sends a 32-bit value to the screen.
 		 * 
 		 * @param u32
 		 */
-		virtual void write32(std::uint32_t u32);
+		virtual Driver *write32(std::uint32_t u32);
 
 		/**
 		 * Sends a 64-bit value to the screen.
 		 * 
 		 * @param u64
 		 */
-		virtual void write64(std::uint64_t u64);
+		virtual Driver *write64(std::uint64_t u64);
 
 		/**
 		 * Sends count 8-bit values to the screen.
@@ -141,7 +156,7 @@ namespace Kempozer::Screen {
 		 * @param data
 		 */
 		[[gnu::nonnull]]
-		virtual void writeArray(std::size_t count, const std::uint8_t *data);
+		virtual Driver *writeArray(std::size_t count, const std::uint8_t *data);
 
 		/**
 		 * Sends count 8-bit values to the screen.
@@ -151,8 +166,18 @@ namespace Kempozer::Screen {
 		 */
 		template<std::size_t C>
 		[[gnu::always_inline]]
-		inline void writeArray(const std::uint8_t (&data)[C]) {
-			writeArray(C, data);
+		inline Driver *writeArray(const std::uint8_t (&data)[C]) {
+			return writeArray(C, data);
+		}
+
+		/**
+		 * 
+		 */
+		[[gnu::always_inline]]
+		inline std::uint16_t readPixel() {
+			std::uint16_t pixel;
+			readPixels(1, &pixel);
+			return pixel;
 		}
 
 		/**
@@ -227,8 +252,8 @@ namespace Kempozer::Screen {
 		 * @param x2
 		 * @param y2
 		 */
-		virtual void addressWindow(std::uint16_t &x1, std::uint16_t &y1,
-								   std::uint16_t &x2, std::uint16_t &y2) = 0;
+		virtual Driver *addressWindow(std::uint16_t &x1, std::uint16_t &y1,
+								   	  std::uint16_t &x2, std::uint16_t &y2) = 0;
 
 		/**
 		 * Gets the write or read graphics RAM address window.
@@ -242,9 +267,9 @@ namespace Kempozer::Screen {
 		 */
 		[[gnu::always_inline]]
 		[[gnu::nonnull]]
-		inline void addressWindow(std::uint16_t *x1, std::uint16_t *y1,
-								  std::uint16_t *x2, std::uint16_t *y2) {
-			addressWindow(*x1, *y1, *x2, *y2);
+		inline Driver *addressWindow(std::uint16_t *x1, std::uint16_t *y1,
+								 	 std::uint16_t *x2, std::uint16_t *y2) {
+			return addressWindow(*x1, *y1, *x2, *y2);
 		}
 
 		/**
@@ -255,8 +280,8 @@ namespace Kempozer::Screen {
 		 * @param x2
 		 * @param y2
 		 */
-		virtual void setAddressWindow(std::uint16_t x1, std::uint16_t y1,
-									  std::uint16_t x2, std::uint16_t y2) = 0;
+		virtual Driver *setAddressWindow(std::uint16_t x1, std::uint16_t y1,
+									  	 std::uint16_t x2, std::uint16_t y2) = 0;
 
 		/**
 		 * Rotates the screen to the given rotation. The values of rotation
@@ -265,7 +290,7 @@ namespace Kempozer::Screen {
 		 * 
 		 * @param rotation
 		 */
-		virtual void rotate(int rotation);
+		virtual Driver *rotate(int rotation);
 
 		/**
 		 * Gets whether or not the screen has been rotated.
@@ -285,7 +310,7 @@ namespace Kempozer::Screen {
 		 * @param width
 		 * @param height
 		 */
-		virtual void resolution(std::uint16_t &width, std::uint16_t &height);
+		virtual Driver *resolution(std::uint16_t &width, std::uint16_t &height);
 
 		/**
 		 * Queries the screen resolution and places its width and height into the
@@ -299,8 +324,8 @@ namespace Kempozer::Screen {
 		 */
 		[[gnu::always_inline]]
 		[[gnu::nonnull]]
-		inline void resolution(std::uint16_t *width, std::uint16_t *height) {
-			resolution(*width, *height);
+		inline Driver *resolution(std::uint16_t *width, std::uint16_t *height) {
+			return resolution(*width, *height);
 		}
 	protected:
 		/**
