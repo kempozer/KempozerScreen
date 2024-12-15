@@ -53,7 +53,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * @see #WRITE_MEMORY_CONTINUE
 		 * @see #READ_MEMORY_CONTINUE
 		 */
-		NO_OP 											= 0x00,
+		NO_OP = 0x00,
 		/**
 		 * Resets the driver IC and display to its initial state. All settings
 		 * are reset to factory default, but the RAM of the screen module is
@@ -70,7 +70,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * @see #SLEEP_OFF
 		 */
-		RESET 											= 0x01,
+		RESET = 0x01,
 		/**
 		 * Reads the identification information of the panel.
 		 * 
@@ -86,7 +86,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * @see #READ_PANEL_DRIVER_VERSION_ID
 		 * @see #READ_PANEL_DRIVER_ID
 		 */
-		READ_DISPLAY_IDENTIFICATION_INFORMATION 		= 0x04,
+		READ_DISPLAY_IDENTIFICATION_INFORMATION = 0x04,
 		/**
 		 * Reads the number of DSI errors on the panel.
 		 * 
@@ -96,23 +96,23 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * - 0: Dummy read
 		 * - 1: A byte with the flags
 		 *   - D7: Overflow status
-		 * 	   - 0: No overflow
-		 * 	   - 1: Overflow
-		 * 	 -D6..D0: Total number of errors
+		 *     - 0: No overflow
+		 *     - 1: Overflow
+		 *   -D6..D0: Total number of errors
 		 */
-		READ_NUMBER_OF_ERRORS_ON_DSI 					= 0x05,
+		READ_NUMBER_OF_ERRORS_ON_DSI = 0x05,
 		/**
 		 * Not used (currently)
 		 */
-		READ_RED_COLOR 									= 0x06,
+		READ_RED_COLOR = 0x06,
 		/**
 		 * Not used (currently)
 		 */
-		READ_GREEN_COLOR 								= 0x07,
+		READ_GREEN_COLOR = 0x07,
 		/**
 		 * Not used (currently)
 		 */
-		READ_BLUE_COLOR 								= 0x08,
+		READ_BLUE_COLOR = 0x08,
 		/**
 		 * Reads the panel's power configuration.
 		 * 
@@ -123,23 +123,23 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * - 1: A byte with the flags
 		 *   - D7: Booster status
 		 *     - 0: booster off/faulted
-		 * 	   - 1: booster on
-		 * 	 - D6: Idle mode
+		 *     - 1: booster on
+		 *   - D6: Idle mode
 		 *     - 0: Idle mode off
-		 * 	   - 1: Idle mode on
-		 * 	 - D5: Partial update mode
+		 *     - 1: Idle mode on
+		 *   - D5: Partial update mode
 		 *     - 0: Partial update mode off
-		 * 	   - 1: Partial update mode on
-		 * 	 - D4: Sleep mode
+		 * 	 - 1: Partial update mode on
+		 *   - D4: Sleep mode
 		 *     - 0: Sleep mode on
-		 * 	   - 1: Sleep mode off
-		 * 	 - D3: Normal mode
+		 *     - 1: Sleep mode off
+		 *   - D3: Normal mode
 		 *     - 0: Normal mode off
-		 * 	   - 1: Normal mode on
-		 * 	 - D2: Display
+		 *     - 1: Normal mode on
+		 *   - D2: Display
 		 *     - 0: Display off
-		 * 	   - 1: Display on
-		 * 	 - D1..D0: Always 0
+		 *     - 1: Display on
+		 *   - D1..D0: Always 0
 		 * 
 		 * @see #IDLE_ON
 		 * @see #IDLE_OFF
@@ -150,7 +150,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * @see #DISPLAY_OFF
 		 * @see #DISPLAY_ON
 		 */
-		READ_DISPLAY_POWER_MODE							= 0x0A,
+		READ_DISPLAY_POWER_MODE = 0x0A,
 		/**
 		 * Reads the panel's memory address control configuration.
 		 * 
@@ -178,7 +178,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 	   - 1: Right to left
 		 *   - D1..D0: Always 0
 		 */
-		READ_DISPLAY_MEMORY_ADDRESS_CONTROL				= 0x0B,
+		READ_DISPLAY_MEMORY_ADDRESS_CONTROL = 0x0B,
 		/**
 		 * Reads the panel's pixel format configuration.
 		 * 
@@ -193,7 +193,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * @see #WRITE_DISPLAY_PIXEL_FORMAT
 		 */
-		READ_DISPLAY_PIXEL_FORMAT						= 0x0C,
+		READ_DISPLAY_PIXEL_FORMAT = 0x0C,
 		/**
 		 * Reads the panel's display configuration.
 		 * 
@@ -217,7 +217,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * 
 		 * @see #WRITE_GAMMA
 		 */
-		READ_DISPLAY_IMAGE_MODE							= 0x0D,
+		READ_DISPLAY_IMAGE_MODE = 0x0D,
 		/**
 		 * Reads the panel's signaling configuration.
 		 * 
@@ -225,18 +225,18 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags:
-		 * 	 - D7: Sync signal
-		 * 	   - 0: Sync signal off
-		 * 	   - 1: Sync signal on
-		 * 	 - D6: Sync signal mode
-		 * 	   - 0: Sync signal mode 1
-		 * 	   - 1: Sync signal mode 2
-		 * 	 - D5..D1: - Always 0
-		 * 	 - D0: DSI error
-		 * 	   - 0: No DSI errors
-		 * 	   - 1: DSI errors
+		 *   - D7: Sync signal
+		 *     - 0: Sync signal off
+		 *     - 1: Sync signal on
+		 *   - D6: Sync signal mode
+		 *     - 0: Sync signal mode 1
+		 *     - 1: Sync signal mode 2
+		 *   - D5..D1: - Always 0
+		 *   - D0: DSI error
+		 *     - 0: No DSI errors
+		 *     - 1: DSI errors
 		 */
-		READ_DISPLAY_SIGNAL_MDOE						= 0x0E,
+		READ_DISPLAY_SIGNAL_MDOE = 0x0E,
 		/**
 		 * Reads the panel's self-diagnostic report.
 		 * 
@@ -244,14 +244,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags:
-		 * 	 - D7: Register loading direction (TODO: Investigate the use of this flag)
-		 * 	 - D6: Functionality detection (TODO: Investigate the use of this flag)
-		 * 	 - D5..D1: Always 0
-		 * 	 - D0: Checksum status
-		 * 	   - 0: Checksum passed
-		 * 	   - 1: Checksum failed
+		 *   - D7: Register loading direction (TODO: Investigate the use of this flag)
+		 *   - D6: Functionality detection (TODO: Investigate the use of this flag)
+		 *   - D5..D1: Always 0
+		 *   - D0: Checksum status
+		 *     - 0: Checksum passed
+		 *     - 1: Checksum failed
 		 */
-		READ_DISPLAY_SELF_DIAGNOSTIC_RESULT				= 0x0F,
+		READ_DISPLAY_SELF_DIAGNOSTIC_RESULT = 0x0F,
 		/**
 		 * Enters the panel into sleep mode. While in sleep mode mode, the
 		 * panel's DC/DC converter and internal oscillator are disabled, and the
@@ -266,7 +266,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		SLEEP_ON										= 0x10,
+		SLEEP_ON = 0x10,
 		/**
 		 * Disables the panel sleep mode. The panel's DC/DC converter and
 		 * internal oscillator are enabled, and the panel will resume updating.
@@ -282,13 +282,13 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		SLEEP_OFF										= 0x11,
+		SLEEP_OFF = 0x11,
 		/**
 		 * Enters the panel into partial update mode. The partial update screen
 		 * area is defined by the {@link Command#WRITE_PARTIAL_AREA} command.
 		 * @return None
 		 */
-		PARTIAL_UPDATE_ON								= 0x12,
+		PARTIAL_UPDATE_ON = 0x12,
 		/**
 		 * Exits the panel from partial update, vertical scrolling, all pixels
 		 * off, and all pixels on modes.
@@ -297,7 +297,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		NORMAL_ON										= 0x13,
+		NORMAL_ON = 0x13,
 		/**
 		 * Exits the panel from color inversion mode.
 		 * 
@@ -305,7 +305,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		DISPLAY_INVERSION_OFF							= 0x20,
+		DISPLAY_INVERSION_OFF = 0x20,
 		/**
 		 * Enters the panel into color inversion mode. Color inversion mode
 		 * makes no changes to the panel's RAM.
@@ -314,7 +314,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		DISPLAY_INVERSION_ON							= 0x21,
+		DISPLAY_INVERSION_ON = 0x21,
 		/**
 		 * Disables the panel's access to its RAM, displaying all black. Pixels
 		 * off mode makes no changes to the panel's RAM.
@@ -326,7 +326,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		ALL_PIXELS_OFF									= 0x22,
+		ALL_PIXELS_OFF = 0x22,
 		/**
 		 * Disables the panel's access to its RAM, displaying all white. Pixels
 		 * on mode makes no changes to the panel's RAM.
@@ -338,7 +338,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		ALL_PIXELS_ON									= 0x23,
+		ALL_PIXELS_ON = 0x23,
 		/**
 		 * 
 		 * 
@@ -346,7 +346,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_GAMMA										= 0x26,
+		WRITE_GAMMA = 0x26,
 		/**
 		 * 
 		 * 
@@ -354,7 +354,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		DISPLAY_OFF 									= 0x28,
+		DISPLAY_OFF = 0x28,
 		/**
 		 * 
 		 * 
@@ -362,7 +362,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		DISPLAY_ON 										= 0x29,
+		DISPLAY_ON = 0x29,
 		/**
 		 * 
 		 * 
@@ -370,7 +370,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_COLUMN_ADDRESS							= 0x2A,
+		WRITE_COLUMN_ADDRESS = 0x2A,
 		/**
 		 * 
 		 * 
@@ -378,7 +378,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_PAGE_ADDRESS								= 0x2B,
+		WRITE_PAGE_ADDRESS = 0x2B,
 		/**
 		 * 
 		 * 
@@ -386,7 +386,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_MEMORY									= 0x2C,
+		WRITE_MEMORY = 0x2C,
 		/**
 		 * 
 		 * 
@@ -394,7 +394,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * 0 - Dummy read
 		 */
-		READ_MEMORY 									= 0x2E,
+		READ_MEMORY = 0x2E,
 		/**
 		 * 
 		 * 
@@ -402,7 +402,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * 0 - Dummy read
 		 */
-		WRITE_PARTIAL_AREA								= 0x30,
+		WRITE_PARTIAL_AREA = 0x30,
 		/**
 		 * 
 		 * 
@@ -410,7 +410,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_VERTICAL_SCROLLING_DEFINITION				= 0x33,
+		WRITE_VERTICAL_SCROLLING_DEFINITION = 0x33,
 		/**
 		 * 
 		 * 
@@ -418,7 +418,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		SYNC_SIGNAL_OFF									= 0x34,
+		SYNC_SIGNAL_OFF = 0x34,
 		/**
 		 * 
 		 * 
@@ -426,7 +426,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		SYNC_SIGNAL_ON									= 0x35,
+		SYNC_SIGNAL_ON = 0x35,
 		/**
 		 * 
 		 * 
@@ -434,7 +434,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_MEMORY_ACCESS_CONTROL						= 0x36,
+		WRITE_MEMORY_ACCESS_CONTROL = 0x36,
 		/**
 		 * 
 		 * 
@@ -442,7 +442,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_VERTICAL_SCROLLING_START_ADDRESS			= 0x37,
+		WRITE_VERTICAL_SCROLLING_START_ADDRESS = 0x37,
 		/**
 		 * 
 		 * 
@@ -450,7 +450,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		IDLE_OFF										= 0x38,
+		IDLE_OFF = 0x38,
 		/**
 		 * 
 		 * 
@@ -458,7 +458,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		IDLE_ON											= 0x39,
+		IDLE_ON = 0x39,
 		/**
 		 * 
 		 * 
@@ -466,7 +466,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_INTERFACE_PIXEL_FORMAT					= 0x3A,
+		WRITE_INTERFACE_PIXEL_FORMAT = 0x3A,
 		/**
 		 * 
 		 * 
@@ -474,7 +474,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_MEMORY_CONTINUE							= 0x3C,
+		WRITE_MEMORY_CONTINUE = 0x3C,
 		/**
 		 * 
 		 * 
@@ -482,7 +482,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * 0 - Dummy read
 		 */
-		READ_MEMORY_CONTINUE							= 0x3E,
+		READ_MEMORY_CONTINUE = 0x3E,
 		/**
 		 * 
 		 * 
@@ -490,29 +490,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_SYNC_SCAN_LINE							= 0x44,
+		WRITE_SYNC_SCAN_LINE = 0x44,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_SCAN_LINE									= 0x45,
-		/**
-		 * 
-		 * 
-		 * Command Results
-		 * ===============
-		 * None
-		 */
-		WRITE_DISPLAY_BRIGHTNESS						= 0x51,
-		/**
-		 * 
-		 * 
-		 * Command Results
-		 * ===============
-		 */
-		READ_DISPLAY_BRIGHTNESS							= 0x52,
+		READ_SCAN_LINE = 0x45,
 		/**
 		 * 
 		 * 
@@ -520,22 +505,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_DISPLAY_CONTROL_VALUE						= 0x53,
+		WRITE_DISPLAY_BRIGHTNESS = 0x51,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_DISPLAY_CONTROL_VALUE						= 0x54,
-		/**
-		 * 
-		 * 
-		 * Command Results
-		 * ===============
-		 * None
-		 */
-		WRITE_ADAPTIVE_BRIGHTNESS_CONTROL_VALUE			= 0x55,
+		READ_DISPLAY_BRIGHTNESS = 0x52,
 		/**
 		 * 
 		 * 
@@ -543,7 +520,14 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		READ_ADAPTIVE_BRIGHTNESS_CONTROL_VALUE			= 0x56,
+		WRITE_DISPLAY_CONTROL_VALUE = 0x53,
+		/**
+		 * 
+		 * 
+		 * Command Results
+		 * ===============
+		 */
+		READ_DISPLAY_CONTROL_VALUE = 0x54,
 		/**
 		 * 
 		 * 
@@ -551,14 +535,30 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_ADAPTIVE_BRIGHTNESS_MINIMUM_VALUE			= 0x5E,
+		WRITE_ADAPTIVE_BRIGHTNESS_CONTROL_VALUE = 0x55,
+		/**
+		 * 
+		 * 
+		 * Command Results
+		 * ===============
+		 * None
+		 */
+		READ_ADAPTIVE_BRIGHTNESS_CONTROL_VALUE = 0x56,
+		/**
+		 * 
+		 * 
+		 * Command Results
+		 * ===============
+		 * None
+		 */
+		WRITE_ADAPTIVE_BRIGHTNESS_MINIMUM_VALUE = 0x5E,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_ADAPTIVE_BRIGHTNESS_MINIMUM_VALUE			= 0x5F,
+		READ_ADAPTIVE_BRIGHTNESS_MINIMUM_VALUE = 0x5F,
 		/**
 		 * 
 		 * 
@@ -573,7 +573,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLACK_WHITE_LOW_BITS						= 0x70,
+		READ_BLACK_WHITE_LOW_BITS = 0x70,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -581,7 +581,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLACK_X									= 0x71,
+		READ_BLACK_X = 0x71,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -589,7 +589,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLACK_Y									= 0x72,
+		READ_BLACK_Y = 0x72,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -597,7 +597,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_WHITE_X									= 0x73,
+		READ_WHITE_X = 0x73,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -605,7 +605,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_WHITE_Y									= 0x74,
+		READ_WHITE_Y = 0x74,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -613,7 +613,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_RED_GREEN_LOW_BITS							= 0x75,
+		READ_RED_GREEN_LOW_BITS = 0x75,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -621,7 +621,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_RED_X										= 0x76,
+		READ_RED_X = 0x76,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -629,7 +629,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_RED_Y										= 0x77,
+		READ_RED_Y = 0x77,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -637,7 +637,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_GREEN_X									= 0x78,
+		READ_GREEN_X = 0x78,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -645,7 +645,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_GREEN_Y									= 0x79,
+		READ_GREEN_Y = 0x79,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -653,7 +653,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLUE_A_LOW_BITS							= 0x7A,
+		READ_BLUE_A_LOW_BITS = 0x7A,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -661,7 +661,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLUE_X										= 0x7B,
+		READ_BLUE_X = 0x7B,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -669,7 +669,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_BLUE_Y										= 0x7C,
+		READ_BLUE_Y = 0x7C,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -677,7 +677,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_A_X 										= 0x7D,
+		READ_A_X = 0x7D,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -685,7 +685,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_A_Y 										= 0x7E,
+		READ_A_Y = 0x7E,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -693,7 +693,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_DDB 										= 0xA1,
+		READ_DDB = 0xA1,
 		/**
 		 * TODO: Document these commands
 		 * 
@@ -701,54 +701,48 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * Unknown
 		 */
-		READ_DDB_CONTINUE								= 0xA8,
+		READ_DDB_CONTINUE = 0xA8,
 		/**
 		 * 
+		 * Command Results
+		 * ===============
 		 */
-		READ_CHECKSUM									= 0xAA,
+		READ_CHECKSUM = 0xAA,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_CHECKSUM_CONTINUE							= 0xAF,
+		READ_CHECKSUM_CONTINUE = 0xAF,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_IC_ID										= 0xD0,  // Identifies the driver chip - should always return 0x99
+		READ_IC_ID = 0xD0,  // < Identifies the driver chip - should always return 0x99
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_PANEL_MANUFACTURER_ID						= 0xDA,
+		READ_PANEL_MANUFACTURER_ID = 0xDA,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_PANEL_DRIVER_VERSION_ID					= 0xDB,
+		READ_PANEL_DRIVER_VERSION_ID = 0xDB,
 		/**
 		 * 
 		 * 
 		 * Command Results
 		 * ===============
 		 */
-		READ_PANEL_DRIVER_ID							= 0xDC,
-		/**
-		 * 
-		 * 
-		 * Command Results
-		 * ===============
-		 * None
-		 */
-		WRITE_OSCILLATOR								= 0xB0,
+		READ_PANEL_DRIVER_ID = 0xDC,
 		/**
 		 * 
 		 * 
@@ -756,7 +750,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_POWER_CONTROL								= 0xB1,
+		WRITE_OSCILLATOR = 0xB0,
 		/**
 		 * 
 		 * 
@@ -764,7 +758,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_DISPLAY_REGISTER							= 0xB2,
+		WRITE_POWER_CONTROL = 0xB1,
 		/**
 		 * 
 		 * 
@@ -772,7 +766,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_RGB_INTERFACE								= 0xB3,
+		WRITE_DISPLAY_REGISTER = 0xB2,
 		/**
 		 * 
 		 * 
@@ -780,7 +774,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_DISPLAY_CYCLE_REGISTER					= 0xB4,
+		WRITE_RGB_INTERFACE = 0xB3,
 		/**
 		 * 
 		 * 
@@ -788,7 +782,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_BGP										= 0xB5,
+		WRITE_DISPLAY_CYCLE_REGISTER = 0xB4,
 		/**
 		 * 
 		 * 
@@ -796,7 +790,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_VCOM_VOLTAGE_REGISTER						= 0xB6,
+		WRITE_BGP = 0xB5,
 		/**
 		 * 
 		 * 
@@ -804,7 +798,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_OTP										= 0xB7,
+		WRITE_VCOM_VOLTAGE_REGISTER = 0xB6,
 		/**
 		 * 
 		 * 
@@ -812,7 +806,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_ENABLE_EXTENSION_COMMANDS					= 0xB9,
+		WRITE_OTP = 0xB7,
 		/**
 		 * 
 		 * 
@@ -820,7 +814,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_STBA										= 0xC0,  // Something to do with power control
+		WRITE_ENABLE_EXTENSION_COMMANDS = 0xB9,
 		/**
 		 * 
 		 * 
@@ -828,7 +822,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_DCG 										= 0xC1,  // Also something to do with power control
+		WRITE_STBA = 0xC0,  // Something to do with power control
 		/**
 		 * 
 		 * 
@@ -836,7 +830,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_ID 										= 0xC3,
+		WRITE_DCG = 0xC1,  // Also something to do with power control
 		/**
 		 * 
 		 * 
@@ -844,7 +838,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_DDB 										= 0xC4,
+		WRITE_ID = 0xC3,
 		/**
 		 * 
 		 * 
@@ -852,7 +846,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_ADAPTIVE_BRIGHTNESS_CONTROL_SETTING		= 0xC9,
+		WRITE_DDB = 0xC4,
 		/**
 		 * 
 		 * 
@@ -860,7 +854,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_PANEL_CHARACTERISTICS						= 0xCC,
+		WRITE_ADAPTIVE_BRIGHTNESS_CONTROL_SETTING = 0xC9,
 		/**
 		 * 
 		 * 
@@ -868,7 +862,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_GAMMA_CURVE 								= 0xE0,
+		WRITE_PANEL_CHARACTERISTICS = 0xCC,
 		/**
 		 * 
 		 * 
@@ -876,7 +870,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_IMAGE_FUNCTION							= 0xE9,
+		WRITE_GAMMA_CURVE = 0xE0,
 		/**
 		 * 
 		 * 
@@ -884,7 +878,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_SPI_COMMAND_TYPE							= 0xEA,
+		WRITE_IMAGE_FUNCTION = 0xE9,
 		/**
 		 * 
 		 * 
@@ -892,7 +886,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_SPI_COLOR									= 0xEB,
+		WRITE_SPI_COMMAND_TYPE = 0xEA,
 		/**
 		 * 
 		 * 
@@ -900,7 +894,7 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		WRITE_SPI_READ_INDEX							= 0xFE,
+		WRITE_SPI_COLOR = 0xEB,
 		/**
 		 * 
 		 * 
@@ -908,7 +902,15 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * None
 		 */
-		READ_SPI_COMMAND_TYPE							= 0xFF
+		WRITE_SPI_READ_INDEX = 0xFE,
+		/**
+		 * 
+		 * 
+		 * Command Results
+		 * ===============
+		 * None
+		 */
+		READ_SPI_COMMAND_TYPE = 0xFF
 	};
 };
 
