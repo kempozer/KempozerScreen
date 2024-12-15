@@ -25,7 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_Drivers_AdafruitHx8357TftDriver_h__
+#define __Kempozer_Screen_Drivers_AdafruitHx8357TftDriver_h__
 
 #include "Kempozer/Screen/Driver.h"
 #include "Kempozer/Screen/DriverFeatures.h"
@@ -250,3 +251,5 @@ namespace Kempozer::Screen::Drivers {
 		bool mRotated;
 	};
 };
+
+#endif//__Kempozer_Screen_Drivers_AdafruitHx8357TftDriver_h__

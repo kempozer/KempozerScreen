@@ -25,7 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_Types_h__
+#define __Kempozer_Screen_Types_h__
 
 #include "KempozerScreenConfig.h"
 
@@ -38,3 +39,5 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ks_packed_struct struct
 
 #endif//defined(ks_enable_struct_packing) && ks_enable_struct_packing
+
+#endif//__Kempozer_Screen_Types_h__

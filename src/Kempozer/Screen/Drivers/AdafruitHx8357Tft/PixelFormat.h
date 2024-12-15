@@ -25,7 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_Drivers_AdafruitHx8357Tft_PixelFormat_h__
+#define __Kempozer_Screen_Drivers_AdafruitHx8357Tft_PixelFormat_h__
 
 #include <cstdint>
 
@@ -37,3 +38,5 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		BITS_24 = 0b0111
 	};
 };
+
+#endif//__Kempozer_Screen_Drivers_AdafruitHx8357Tft_PixelFormat_h__

@@ -25,7 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_DriverFeatures_h__
+#define __Kempozer_Screen_DriverFeatures_h__
 
 #include "Kempozer/Screen/Types.h"
 
@@ -87,3 +88,5 @@ namespace Kempozer::Screen {
 		const bool supportsRotate : 1;
 	};
 };
+
+#endif//__Kempozer_Screen_DriverFeatures_h__

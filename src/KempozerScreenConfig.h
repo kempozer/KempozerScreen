@@ -25,10 +25,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __KempozerScreenConfig_h__
+#define __KempozerScreenConfig_h__
 
 #ifndef ks_enable_struct_packing
 
 #define ks_enable_struct_packing (0)
 
 #endif//ks_enable_struct_packing
+
+#endif//__KempozerScreenConfig_h__

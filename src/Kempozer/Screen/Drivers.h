@@ -25,6 +25,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_Drivers_h__
+#define __Kempozer_Screen_Drivers_h__
 
 #include "Kempozer/Screen/Drivers/AdafruitHx8357TftDriver.h"
+
+#endif//__Kempozer_Screen_Drivers_h__

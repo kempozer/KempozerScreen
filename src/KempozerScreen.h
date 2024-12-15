@@ -25,8 +25,11 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __KempozerScreen_h__
+#define __KempozerScreen_h__
 
 #include "Kempozer/Screen/DriverFeatures.h"
 #include "Kempozer/Screen/Driver.h"
 #include "Kempozer/Screen/Drivers.h"
+
+#endif//__KempozerScreen_h__

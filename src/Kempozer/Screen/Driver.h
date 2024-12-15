@@ -25,7 +25,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#ifndef __Kempozer_Screen_Driver_h__
+#define __Kempozer_Screen_Driver_h__
 
 #include <Arduino.h>
 #include <cstdint>
@@ -363,3 +364,5 @@ namespace Kempozer::Screen {
 					  mWidth;
 	};
 };
+
+#endif//__Kempozer_Screen_Driver_h__
