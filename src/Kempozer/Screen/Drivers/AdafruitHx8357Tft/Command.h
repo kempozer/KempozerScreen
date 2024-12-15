@@ -187,9 +187,9 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags:
 		 *   - D7: Always 0
-		 *     - D6..D4: Bits of the DPI pixel format
-		 *     - D3: Always 0
-		 *     - D2..D0: Bits of the DBI pixel format
+		 *   - D6..D4: Bits of the DPI pixel format
+		 *   - D3: Always 0
+		 *   - D2..D0: Bits of the DBI pixel format
 		 * 
 		 * @see #WRITE_DISPLAY_PIXEL_FORMAT
 		 */
@@ -202,18 +202,18 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags:
 		 *   - D7: Vertical scrolling mode
-		 * 	   - 0: Vertical scrolling mode off
-		 * 	   - 1: Vertical scrolling mode on
-		 * 	 - D6: Always 0
-		 * 	 - D5: Color inversion mode
-		 * 	   - 0: Color inversion mode off
-		 * 	   - 1: Color inversion mode on
-		 * 	 - D4..D3: Always 0
+		 *     - 0: Vertical scrolling mode off
+		 *     - 1: Vertical scrolling mode on
+		 *   - D6: Always 0
+		 *   - D5: Color inversion mode
+		 *     - 0: Color inversion mode off
+		 *     - 1: Color inversion mode on
+		 *   - D4..D3: Always 0
 		 *   - D2..D0: Gamma curve selection
-		 * 	   - 0b000: Gamma curve 1
-		 * 	   - 0b001: Gamma curve 2
-		 * 	   - 0b010: Gamma curve 3
-		 * 	   - 0b011: Gamma curve 4
+		 *     - 0b000: Gamma curve 1
+		 *     - 0b001: Gamma curve 2
+		 *     - 0b010: Gamma curve 3
+		 *     - 0b011: Gamma curve 4
 		 * 
 		 * @see #WRITE_GAMMA
 		 */
