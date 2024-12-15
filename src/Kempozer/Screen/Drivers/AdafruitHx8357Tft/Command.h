@@ -158,24 +158,24 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * ===============
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags
-		 * - D7: Y address direction
-		 * - 0: Top to bottom
-		 * - 1: Bottom to top
+		 *   - D7: Y address direction
+		 *     - 0: Top to bottom
+		 *     - 1: Bottom to top
 		 *   - D6: X address direction
-		 * 	   - 0: Left to right
-		 * 	   - 1: Right to left
+		 *     - 0: Left to right
+		 *     - 1: Right to left
 		 *   - D5: Rotation
-		 * 	   - 0: Increment X then Y
-		 * 	   - 1: Increment Y then X)
+		 *     - 0: Increment X then Y
+		 *     - 1: Increment Y then X)
 		 *   - D4: Refresh direction
-		 * 	   - 0: Top to bottom
-		 * 	   - 1: Bottom to top)
+		 *     - 0: Top to bottom
+		 *     - 1: Bottom to top)
 		 *   - D3: RGB order
-		 * 	   - 0: RGB
-		 * 	   - 1: BGR
+		 *     - 0: RGB
+		 *     - 1: BGR
 		 *   - D2: Display data latch order
-		 * 	   - 0: Left to right
-		 * 	   - 1: Right to left
+		 *     - 0: Left to right
+		 *     - 1: Right to left
 		 *   - D1..D0: Always 0
 		 */
 		READ_DISPLAY_MEMORY_ADDRESS_CONTROL = 0x0B,
@@ -187,9 +187,9 @@ namespace Kempozer::Screen::Drivers::AdafruitHx8357Tft {
 		 * - 0: Dummy read
 		 * - 1: A byte with the following flags:
 		 *   - D7: Always 0
-		 * 	 - D6..D4: Bits of the DPI pixel format
-		 * 	 - D3: Always 0
-		 * 	 - D2..D0: Bits of the DBI pixel format
+		 *     - D6..D4: Bits of the DPI pixel format
+		 *     - D3: Always 0
+		 *     - D2..D0: Bits of the DBI pixel format
 		 * 
 		 * @see #WRITE_DISPLAY_PIXEL_FORMAT
 		 */
