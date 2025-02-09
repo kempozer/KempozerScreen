@@ -31,4 +31,8 @@
 *.out
 *.app
 
-.DS_Store
+# Sublime
+*.sublime-*
+
+#Mac
+*.DS_Store
