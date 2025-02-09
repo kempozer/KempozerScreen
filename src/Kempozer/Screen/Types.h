@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "KempozerScreenConfig.h"
 
-#if defined(ks_enable_struct_packing) && ks_enable_struct_packing
+#if defined(KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING) && KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING
 
 #define ks_packed_struct struct [[gnu::packed]]
 
@@ -38,6 +38,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define ks_packed_struct struct
 
-#endif//defined(ks_enable_struct_packing) && ks_enable_struct_packing
+#endif//defined(KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING) && KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING
 
 #endif//__Kempozer_Screen_Types_h__

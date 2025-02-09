@@ -28,10 +28,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __KempozerScreenConfig_h__
 #define __KempozerScreenConfig_h__
 
-#ifndef ks_enable_struct_packing
+#ifndef KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING
 
-#define ks_enable_struct_packing (0)
+#define KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING (0)
 
-#endif//ks_enable_struct_packing
+#endif//KEMPOZER_SCREEN_ENABLE_STRUCT_PACKING
+
+#define KEMPOZER_SCREEN_HX8357_READ_DELAY (55)
 
 #endif//__KempozerScreenConfig_h__
