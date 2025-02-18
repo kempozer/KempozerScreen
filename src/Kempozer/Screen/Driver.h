@@ -42,14 +42,6 @@ namespace Kempozer::Screen {
     class Driver {
     public:
         /**
-         * Returns a compact struct that defines all of the features of the
-         * implementing driver so that some runtime introspection can be
-         * performed to determine the best way to read from and write to
-         * the screen.
-         */
-        virtual const DriverFeatures &features() const = 0;
-
-        /**
          * Initializes this driver so that it can be used to interact with the
          * screen. If the driver is successfully initialized, or no verification
          * of initialization is possible, then true must be returned.
@@ -366,6 +358,6 @@ namespace Kempozer::Screen {
         std::uint16_t mHeight,
                       mWidth;
     };
-};
+}
 
 #endif//__Kempozer_Screen_Driver_h__
