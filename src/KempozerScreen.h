@@ -28,7 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __KempozerScreen_h__
 #define __KempozerScreen_h__
 
-#include "Kempozer/Screen/DriverFeatures.h"
 #include "Kempozer/Screen/Driver.h"
 
 #endif//__KempozerScreen_h__
