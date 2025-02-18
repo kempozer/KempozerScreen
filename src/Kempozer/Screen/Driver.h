@@ -28,7 +28,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef __Kempozer_Screen_Driver_h__
 #define __Kempozer_Screen_Driver_h__
 
-#include <Arduino.h>
+#include <cstddef>
 #include <cstdint>
 #include <type_traits>
 #include "KempozerScreenConcepts.h"
@@ -36,6 +36,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace Kempozer::Screen {
 
+    /**
+     * 
+     */
 	class Driver {
 	public:
 		/**
