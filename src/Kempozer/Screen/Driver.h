@@ -32,7 +32,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cstdint>
 #include <type_traits>
 #include "KempozerScreenConcepts.h"
-#include "Kempozer/Screen/DriverFeatures.h"
 
 namespace Kempozer::Screen {
 
